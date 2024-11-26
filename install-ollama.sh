@@ -5,10 +5,9 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-export OLLAMA_MODELS="$1"
 curl -fsSL https://ollama.com/install.sh | sh
 
-line_to_add="Environment="OLLAMA_MODELS=$1/ollama-models"
+line_to_add="Environment=OLLAMA_MODELS=$1/models"
 sudo sed -i "/^Environment=.*/a ${line_to_add}" /etc/systemd/system/ollama.service
 sudo mkdir -f $1
 sudo chown ollama:ollama $1
