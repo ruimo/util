@@ -7,10 +7,9 @@ fi
 
 curl -fsSL https://ollama.com/install.sh | sh
 
-dir="$1/models"
-line_to_add="Environment=OLLAMA_MODELS=$dir"
-sudo sed -i "/^Environment=.*/a ${line_to_add}" /etc/systemd/system/ollama.service
-sudo mkdir -p "$dir"
-sudo chown ollama:ollama "$dir"
+DIR="$1/models"
+sudo sed -i "/^Environment.*PATH.*$/a Environment=\"OLLAMA_MODELS=$DIR\"" /etc/systemd/system/ollama.service
+sudo mkdir -p "$DIR"
+sudo chown ollama:ollama "$DIR"
 sudo systemctl daemon-reload
 sudo systemctl start ollama
