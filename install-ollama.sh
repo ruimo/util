@@ -5,4 +5,5 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-OLLAMA_MODELS="$1" curl -fsSL https://ollama.com/install.sh | sh
+export OLLAMA_MODELS="$1"
+curl -fsSL https://ollama.com/install.sh | sh
