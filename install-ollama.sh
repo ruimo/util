@@ -5,11 +5,9 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-curl -fsSL https://ollama.com/install.sh | sh
-
-DIR="$1/models"
-sudo sed -i "/^Environment.*PATH.*$/a Environment=\"OLLAMA_MODELS=$DIR\"" /etc/systemd/system/ollama.service
+DIR="$1"
 sudo mkdir -p "$DIR"
 sudo chown ollama:ollama "$DIR"
-sudo systemctl daemon-reload
-sudo systemctl start ollama
+sudo ln -s "$DIR" /usr/share/ollama
+
+curl -fsSL https://ollama.com/install.sh | sh
